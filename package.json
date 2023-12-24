@@ -1,12 +1,13 @@
 {
   "name": "add-timeout-to-function",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest"
   },
+  "main":"./dist/index.js",
   "module": "./dist/index.js",
   "files": [
     "dist"
