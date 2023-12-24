@@ -8,9 +8,10 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      formats: ['es'],
+      formats: ['es','umd'],
       entry: resolve(__dirname, './src/index.ts'),
-      fileName:"index"
+      fileName:"index",
+      name:"AddPromiseToFunction"
     }
   }
 });

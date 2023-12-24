@@ -1,13 +1,13 @@
 {
   "name": "add-timeout-to-function",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest"
   },
-  "main":"./dist/index.js",
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "files": [
     "dist"
@@ -20,11 +20,11 @@
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "devDependencies": {
+    "@types/node": "^20.10.5",
     "@vitest/coverage-v8": "^1.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-dts": "^3.6.4",
-    "vitest": "^1.1.0",
-    "@types/node": "^20.10.5"
+    "vitest": "^1.1.0"
   }
 }
