@@ -1,1 +1,1 @@
-Little utility function to add timeout to functions. Mostly for personal usage so no onboarding or fancy comments. You can look at the function in the index file.
+Not Ready
