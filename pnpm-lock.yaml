@@ -4,15 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
+devDependencies:
   '@types/node':
     specifier: ^20.10.5
     version: 20.10.5
-  add-timeout-to-function:
-    specifier: ^0.0.1
-    version: 0.0.1
-
-devDependencies:
   '@vitest/coverage-v8':
     specifier: ^1.1.0
     version: 1.1.0(vitest@1.1.0)
@@ -534,6 +529,7 @@ packages:
     resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@vitest/coverage-v8@1.1.0(vitest@1.1.0):
     resolution: {integrity: sha512-kHQRk70vTdXAyQY2C0vKOHPyQD/R6IUzcGdO4vCuyr4alE5Yg1+Sk2jSdjlIrTTXdcNEs+ReWVM09mmSFJpzyQ==}
@@ -665,12 +661,6 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
-
-  /add-timeout-to-function@0.0.1:
-    resolution: {integrity: sha512-AnsgjsZHm6neQvATmFDa4R6/n3vbnCiYj8sjnOkqyvlSZsseiaGfxKRK7lvqW5RMvbVwiiY2qGsoR7ot8eGN8w==}
-    dependencies:
-      '@types/node': 20.10.5
-    dev: false
 
   /ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -1385,6 +1375,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
 
   /universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
