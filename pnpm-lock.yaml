@@ -8,6 +8,9 @@ dependencies:
   '@types/node':
     specifier: ^20.10.5
     version: 20.10.5
+  add-timeout-to-function:
+    specifier: ^0.0.1
+    version: 0.0.1
 
 devDependencies:
   '@vitest/coverage-v8':
@@ -662,6 +665,12 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
+
+  /add-timeout-to-function@0.0.1:
+    resolution: {integrity: sha512-AnsgjsZHm6neQvATmFDa4R6/n3vbnCiYj8sjnOkqyvlSZsseiaGfxKRK7lvqW5RMvbVwiiY2qGsoR7ot8eGN8w==}
+    dependencies:
+      '@types/node': 20.10.5
+    dev: false
 
   /ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
