@@ -1,5 +1,5 @@
 import { expect, test, describe, vi } from "vitest";
-import { TimeoutArgs, TimeoutError, addTimeoutToFunction } from ".";
+import { FnWithNoArgs, TimeoutArgs, TimeoutError, addTimeoutToFunction } from ".";
 
 
 describe("basic functionalities", () => {
@@ -24,32 +24,36 @@ describe("basic functionalities", () => {
   });
 });
 
-async function returnSumAfterSpecifiedTime({ a, b, time, shouldThrowError = false }: { a: number, b: number, time: number, shouldThrowError: boolean; }, timeoutArgs?: TimeoutArgs) {
+async function returnSumAfterSpecifiedTime({ a, b, time, shouldThrowError = false, handleTimedOut }: { a: number, b: number, time: number, shouldThrowError: boolean; handleTimedOut?: FnWithNoArgs; }, timeoutArgs: TimeoutArgs) {
   if (shouldThrowError) throw new Error("Function had a(n) (simulated) error");
-  if (timeoutArgs) timeoutArgs.setHandleHasTimedOut(() => () => `I cleaned up from within, a and b are: ${a},${b}`);
+  if (handleTimedOut) timeoutArgs.setHandleHasTimedOut(handleTimedOut);
   return new Promise<number>((resolve, _) => setTimeout(() => resolve(a + b), time));
 }
 
 describe("setHandleHasTimedOut functionality tests", () => {
   test("correctly register the function to handle timeout within the target function", async () => {
     const returnSumAfterSpecifiedTimeWithTimeout = addTimeoutToFunction({ fn: returnSumAfterSpecifiedTime, timeout: 100, shouldProvideTimeoutArgs: true });
-
+    const fn = vi.fn((a, b) => a + b);
+    expect(returnSumAfterSpecifiedTimeWithTimeout({ a: 1, b: 2, time: 1000, shouldThrowError: false, handleTimedOut: () => fn(1, 2) })).rejects.toThrowError();
+    // Need to wait so that the onTimedOut fn has time to run before checking things
+    await wait(100);
+    expect(fn).toHaveBeenCalledOnce();
+    expect(fn).toHaveBeenCalledWith(1, 2);
   });
 });
 
-// describe("cleanup functionality tests", () => {
-//   test("correctly call cleanup function if timeout", async () => {
-//     const cleanupFnMock = vi.fn().mockResolvedValue(1);
-//     await expect(() => addTimeoutToFunction({ fn: async () => await wait(1000), timeout: 100, cleanupFn: () => cleanupFnMock() })()).rejects.toThrowError();
-//     expect(cleanupFnMock).toHaveBeenCalledOnce();
-//     expect(cleanupFnMock).toHaveNthReturnedWith(1, 1);
-//   });
-//   test("correctly doesn't call cleanup function if timeout didn't expire", async () => {
-//     const cleanupFnMock = vi.fn();
-//     expect(() => addTimeoutToFunction(async () => await wait(100), 1000, () => cleanupFnMock()));
-//     expect(cleanupFnMock).not.toBeCalled();
-//   });
-// });
+describe("cleanup functionality tests", () => {
+  test("correctly call cleanup function if timeout", async () => {
+    const cleanupFnMock = vi.fn();
+    await expect(() => addTimeoutToFunction({ fn: async () => await wait(1000), timeout: 100, cleanupFn: () => cleanupFnMock() })()).rejects.toThrowError();
+    expect(cleanupFnMock).toHaveBeenCalledOnce();
+  });
+  test("correctly doesn't call cleanup function if timeout didn't expire", async () => {
+    const cleanupFnMock = vi.fn();
+    expect(() => addTimeoutToFunction({ fn: async () => await wait(100), timeout: 1000, cleanupFn: () => cleanupFnMock() }));
+    expect(cleanupFnMock).not.toBeCalled();
+  });
+});
 
 export async function wait(duration: number) {
   return new Promise((resolve) => setTimeout(resolve, duration));
