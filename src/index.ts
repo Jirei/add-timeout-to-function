@@ -1,24 +1,29 @@
-export async function addTimeoutToFunction<T>(fn: FunctionForAddTimeoutToFunction<T>, timeout: number, cleanupFn?: () => void | Promise<void>): Promise<Awaited<T>> {
+export function addTimeoutToFunction<T extends FnReturningPromise>({ fn, timeout, cleanupFn }: { fn: T, timeout: number; cleanupFn?: () => void | Promise<void>; }) {
+  return (...args: ExcludeLastFromTupleIfTimeoutArgs<Parameters<T>>) => addTimeoutToFunctionInternal<T>(fn, args, timeout, cleanupFn);
+}
+
+
+function addTimeoutToFunctionInternal<T extends FnReturningPromise>(fn: T, args: ExcludeLastFromTupleIfTimeoutArgs<Parameters<T>>, timeout: number, cleanupFn?: () => void | Promise<void>): Promise<Awaited<T>> {
   let timedOut = false;
   let hasTimedOut = () => timedOut;
   let timeoutId: number | NodeJS.Timeout | undefined;
-  return Promise.race(
+  return Promise.race<T>(
     [
-      fn(hasTimedOut).then(result => {
+      fn(...args, { hasTimedOut }).then(result => {
         clearTimeout(timeoutId);
         return result;
       }),
-      new Promise<T>(
+      new Promise<void>(
         (_, reject) => {
           timeoutId = setTimeout(async () => {
             reject(new TimeoutError("Function timed out"));
-            cleanupFn && await cleanupFn();
+            timedOut = true;
+            cleanupFn && cleanupFn();
           }, timeout);
         })
     ]);
 }
 
-export type FunctionForAddTimeoutToFunction<T> = (hasTimedOut?: () => boolean) => Promise<T>;
 
 
 export class TimeoutError extends Error {
@@ -27,3 +32,24 @@ export class TimeoutError extends Error {
     this.name = "TimeoutError";
   }
 }
+
+export type FnReturningPromise = (...args: any[]) => Promise<any>;
+export type FnReturningPromiseWithTimeoutArgs<T extends FnReturningPromise> = (...args: Parameters<T>) => Promise<any>;
+
+export type TimeoutArgs = {
+  hasTimedOut: () => boolean;
+};
+
+export async function wait(duration: number) {
+  return new Promise((resolve) => setTimeout(resolve, duration));
+}
+
+type ExcludeFromTuple<T extends readonly any[], E> =
+  T extends [infer F, ...infer R] ?
+  ([F] extends [E] ? ExcludeFromTuple<R, E> : [F, ...ExcludeFromTuple<R, E>])
+  : [];
+
+
+type ExcludeLastFromTupleIfTimeoutArgs<T extends readonly any[]> = T extends [...infer F, infer R] ?
+  ([R] extends [TimeoutArgs] ? F : T) : [];
+
