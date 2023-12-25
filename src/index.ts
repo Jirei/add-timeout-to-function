@@ -56,5 +56,5 @@ export type ExcludeFromTuple<T extends readonly any[], E> =
 
 
 export type ExcludeLastFromTupleIfTimeoutArgs<T extends readonly any[]> = T extends [...infer F, infer R] ?
-  ([R] extends [TimeoutArgs] ? F : T) : [];
+  ([R] extends [TimeoutArgs] ? F : T) : T;
 

@@ -1,5 +1,5 @@
 import { expect, test, describe, vi } from "vitest";
-import { TimeoutError, addTimeoutToFunction } from ".";
+import { TimeoutArgs, TimeoutError, addTimeoutToFunction } from ".";
 
 
 describe("basic functionalities", () => {
@@ -24,25 +24,18 @@ describe("basic functionalities", () => {
   });
 });
 
-async function returnSumAfterSpecifiedTime({ a, b, time, shouldThrowError = false }: { a: number, b: number, time: number, shouldThrowError: boolean; }) {
+async function returnSumAfterSpecifiedTime({ a, b, time, shouldThrowError = false }: { a: number, b: number, time: number, shouldThrowError: boolean; }, timeoutArgs?: TimeoutArgs) {
   if (shouldThrowError) throw new Error("Function had a(n) (simulated) error");
+  if (timeoutArgs) timeoutArgs.setHandleHasTimedOut(() => () => `I cleaned up from within, a and b are: ${a},${b}`);
   return new Promise<number>((resolve, _) => setTimeout(() => resolve(a + b), time));
 }
 
-// describe("hasTimedOut functionality tests", () => {
-//   test("correctly communicate if the timeout has expired with the provided hasTimedOut function", async () => {
-//     const functionWithTimeout = addTimeoutToFunction({(hasTimedOut) => hasTimedOutReturnCorrectValues(500, 300, hasTimedOut), 1000})
-//     await ;
-//   });
-// });
+describe("setHandleHasTimedOut functionality tests", () => {
+  test("correctly register the function to handle timeout within the target function", async () => {
+    const returnSumAfterSpecifiedTimeWithTimeout = addTimeoutToFunction({ fn: returnSumAfterSpecifiedTime, timeout: 100, shouldProvideTimeoutArgs: true });
 
-// async function hasTimedOutReturnCorrectValues(timeout: number, beforeTimeout: number, hasTimedOut: (() => boolean) | undefined) {
-//   if (!hasTimedOut) throw new Error("hasTimedOut should have been provided for this function");
-//   setTimeout(() => expect(hasTimedOut()).toEqual(false), timeout - beforeTimeout);
-//   await wait(timeout + 100);
-//   () => expect(hasTimedOut()).toEqual(true);
-
-// }
+  });
+});
 
 // describe("cleanup functionality tests", () => {
 //   test("correctly call cleanup function if timeout", async () => {
