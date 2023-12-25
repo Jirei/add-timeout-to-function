@@ -7,23 +7,22 @@ describe("basic functionalities", () => {
     const returnSumAfterSpecifiedTimeWithTimeout = addTimeoutToFunction({ fn: returnSumAfterSpecifiedTime, timeout: 1000 });
     await expect(returnSumAfterSpecifiedTimeWithTimeout({ a: 1, b: 2, time: 100, shouldThrowError: false })).resolves.toEqual(3);
   });
+  test("throws error if function execution ends after the timeout", async () => {
+    const returnSumAfterSpecifiedTimeWithTimeout = addTimeoutToFunction({ fn: returnSumAfterSpecifiedTime, timeout: 100 });
+    await expect(returnSumAfterSpecifiedTimeWithTimeout({ a: 1, b: 2, time: 500, shouldThrowError: false })).rejects.toThrowError();
+  });
+
+  test("thrown error if function execution ends after the timeout has correct type & name", async () => {
+    const returnSumAfterSpecifiedTimeWithTimeout = addTimeoutToFunction({ fn: returnSumAfterSpecifiedTime, timeout: 100 });
+    await expect(returnSumAfterSpecifiedTimeWithTimeout({ a: 1, b: 2, time: 500, shouldThrowError: false })).rejects.toBeInstanceOf(TimeoutError);
+    await expect(returnSumAfterSpecifiedTimeWithTimeout({ a: 1, b: 2, time: 500, shouldThrowError: false })).rejects.toThrowError("Function timed out");
+  });
+
+  test("throws the original function error if the function has an error before the timeout", async () => {
+    const returnSumAfterSpecifiedTimeWithTimeout = addTimeoutToFunction({ fn: returnSumAfterSpecifiedTime, timeout: 100 });
+    await expect(returnSumAfterSpecifiedTimeWithTimeout({ a: 1, b: 2, time: 500, shouldThrowError: true })).rejects.toThrowError("Function had a(n) (simulated) error");
+  });
 });
-//   test("throws error if function execution ends after the timeout", async () => {
-//     const functionWithTimeout = addTimeoutToFunction({ fn: () => returnSumAfterSpecifiedTime(1, 2, 500), timeout: 100 });
-//     await expect(functionWithTimeout()).rejects.toThrowError();
-//   });
-
-//   test("thrown error if function execution ends after the timeout has correct type & name", async () => {
-//     const functionWithTimeout = addTimeoutToFunction({ fn: () => returnSumAfterSpecifiedTime(1, 2, 500), timeout: 100 });
-//     await expect(await functionWithTimeout()).rejects.toBeInstanceOf(TimeoutError);
-//     await expect(await functionWithTimeout()).rejects.toThrowError("Function timed out");
-//   });
-
-//   test("throws the original function error if the function has an error before the timeout", async () => {
-//     const functionWithTimeout = addTimeoutToFunction({ fn: () => returnSumAfterSpecifiedTime(1, 2, 500, true), timeout: 100 });
-//     await expect(functionWithTimeout()).rejects.toThrowError("Function had a(n) (simulated) error");
-//   });
-// });
 
 async function returnSumAfterSpecifiedTime({ a, b, time, shouldThrowError = false }: { a: number, b: number, time: number, shouldThrowError: boolean; }) {
   if (shouldThrowError) throw new Error("Function had a(n) (simulated) error");
