@@ -1,1 +1,1 @@
-Not Ready
+This package is functional and has been tested but does not include documentation. It is primarily intended for personal use.
