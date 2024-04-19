@@ -7,6 +7,7 @@ interface TestWithContextFixtures {
 }
 
 export const testWithContext = test.extend<TestWithContextFixtures>({
+  // eslint-disable-next-line no-empty-pattern
   asyncAdd: async ({}, use) => {
     await use(asyncAdd);
   },

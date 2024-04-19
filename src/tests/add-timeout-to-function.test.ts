@@ -109,14 +109,14 @@ describe("addTimeoutToFunction", () => {
             b: 2,
             delay: 1000,
             shouldThrowError: false,
-            timeoutCallback: () => timeoutCallbackMock(1, 2),
+            timeoutCallback: () => void timeoutCallbackMock(1, 2),
           }),
         ).rejects.toThrowError();
         // Need to wait so that the timeout callback fn has time to run before checking things
         await vi.advanceTimersByTimeAsync(500);
         await expect1;
-        const expect2 = expect(timeoutCallbackMock).toHaveBeenCalledOnce();
-        const expect3 = expect(timeoutCallbackMock).toHaveBeenCalledWith(1, 2);
+        const _expect2 = expect(timeoutCallbackMock).toHaveBeenCalledOnce();
+        const _expect3 = expect(timeoutCallbackMock).toHaveBeenCalledWith(1, 2);
       },
     );
     testWithContext(
@@ -134,12 +134,12 @@ describe("addTimeoutToFunction", () => {
           b: 2,
           delay: 100,
           shouldThrowError: false,
-          timeoutCallback: () => timeoutCallbackMock(1, 2),
+          timeoutCallback: () => void timeoutCallbackMock(1, 2),
         });
         const expect1 = expect(result).resolves.toBe(3);
         await vi.advanceTimersByTimeAsync(150);
         await expect1;
-        const expect2 = expect(timeoutCallbackMock).not.toHaveBeenCalledOnce();
+        const _expect2 = expect(timeoutCallbackMock).not.toHaveBeenCalledOnce();
       },
     );
   });
@@ -151,15 +151,15 @@ describe("addTimeoutToFunction", () => {
       const asyncWaitDecoratedWithTimeout = addTimeoutToFunction({
         fn: async () => await wait(1000),
         timeout: 100,
-        cleanupFn: () => cleanupFnMock(1, 2),
+        cleanupFn: () => void cleanupFnMock(1, 2),
       });
       const result = asyncWaitDecoratedWithTimeout();
       const expect1 = expect(result).rejects.toThrowError();
       // Need to wait so that the timeout callback fn has time to run before checking things
       await vi.advanceTimersByTimeAsync(100);
       await expect1;
-      const expect2 = expect(cleanupFnMock).toHaveBeenCalledOnce();
-      const expect3 = expect(cleanupFnMock).toHaveBeenCalledWith(1, 2);
+      const _expect2 = expect(cleanupFnMock).toHaveBeenCalledOnce();
+      const _expect3 = expect(cleanupFnMock).toHaveBeenCalledWith(1, 2);
     });
     test("correctly doesn't call cleanup function if timeout didn't expire", async ({
       expect,
@@ -172,13 +172,13 @@ describe("addTimeoutToFunction", () => {
           return 1;
         },
         timeout: 1000,
-        cleanupFn: () => cleanupFnMock(),
+        cleanupFn: () => void cleanupFnMock(),
       });
       const result = asyncWaitDecoratedWithTimeout();
       const expect1 = expect(result).resolves.toBe(1);
       await vi.advanceTimersByTimeAsync(2000);
       await expect1;
-      const expect2 = expect(cleanupFnMock).not.toBeCalled();
+      const _expect2 = expect(cleanupFnMock).not.toBeCalled();
     });
   });
 });

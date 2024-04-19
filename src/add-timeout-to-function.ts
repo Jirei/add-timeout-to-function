@@ -9,7 +9,7 @@ export function addTimeoutToFunction<F extends AsyncFn>({
   timeout,
   cleanupFn,
   includeTimeoutArgs = false,
-}: AddTimeoutToFunctionParams<F>) {
+}: AddTimeoutToFunctionParams<F>): AddTimeoutToFunctionReturnType<F> {
   return (...args: ExcludeLastFromTupleIfTimeoutArgs<Parameters<F>>) =>
     _addTimeoutToFunctionInternal<F>({
       fn,
@@ -19,6 +19,10 @@ export function addTimeoutToFunction<F extends AsyncFn>({
       includeTimeoutArgs,
     });
 }
+
+export type AddTimeoutToFunctionReturnType<F extends AsyncFn> = (
+  ...args: ExcludeLastFromTupleIfTimeoutArgs<Parameters<F>>
+) => Promise<Awaited<ReturnType<F>>>;
 
 export type AddTimeoutToFunctionParams<F extends AsyncFn> = Omit<
   _AddTimeoutToFunctionInternalParams<F>,
@@ -32,7 +36,7 @@ function _addTimeoutToFunctionInternal<F extends AsyncFn>({
   cleanupFn,
   includeTimeoutArgs,
 }: _AddTimeoutToFunctionInternalParams<F>): Promise<Awaited<ReturnType<F>>> {
-  let timeoutCallback: () => void | undefined;
+  let timeoutCallback: () => void;
   let timeoutArgsOrUndefined;
   if (includeTimeoutArgs) {
     const setTimeoutCallback = (fn: FnWithNoArgs) => (timeoutCallback = fn);
@@ -42,9 +46,11 @@ function _addTimeoutToFunctionInternal<F extends AsyncFn>({
   return Promise.race<ReturnType<F>>([
     fn(...args, timeoutArgsOrUndefined).then((result) => {
       clearTimeout(timeoutId);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return result;
     }),
     new Promise<void>((_, reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       timeoutId = setTimeout(async () => {
         reject(new TimeoutError("Function timed out"));
         cleanupFn && (await cleanupFn());
