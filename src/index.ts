@@ -1,7 +1,8 @@
 export {
   addTimeoutToFunction,
-  type AddTimeoutToFunctionParams,
   TimeoutError,
+  type AddTimeoutToFunction,
+  type AddTimeoutToFunctionParams,
 } from "./add-timeout-to-function";
 
 export type {

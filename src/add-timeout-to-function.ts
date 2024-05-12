@@ -20,6 +20,8 @@ export function addTimeoutToFunction<F extends AsyncFn>({
     });
 }
 
+export type AddTimeoutToFunction = typeof addTimeoutToFunction;
+
 export type AddTimeoutToFunctionReturnType<F extends AsyncFn> = (
   ...args: ExcludeLastFromTupleIfTimeoutArgs<Parameters<F>>
 ) => Promise<Awaited<ReturnType<F>>>;
