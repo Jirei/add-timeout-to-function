@@ -51,7 +51,7 @@ function _addTimeoutToFunctionInternal<F extends AsyncFn>({
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return result;
     }),
-    new Promise<void>((_, reject) => {
+    new Promise((_, reject) => {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       timeoutId = setTimeout(async () => {
         reject(new TimeoutError("Function timed out"));

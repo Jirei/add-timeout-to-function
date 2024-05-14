@@ -33,7 +33,7 @@ export function addTimeoutToFunctionTestsFactory(
           expect.assertions(1);
           const asyncAddDecoratedWithTimeout = addTimeoutToFunction({
             fn: asyncAdd,
-            timeout: 1000,
+            timeout: 300,
           });
           const result = asyncAddDecoratedWithTimeout({
             a: 1,
@@ -42,7 +42,7 @@ export function addTimeoutToFunctionTestsFactory(
             shouldThrowError: false,
           });
           const expect1 = expect(result).resolves.toBe(3);
-          await vi.advanceTimersByTimeAsync(1100);
+          await vi.advanceTimersByTimeAsync(310);
           await expect1;
         },
       );
@@ -90,7 +90,7 @@ export function addTimeoutToFunctionTestsFactory(
           const expect2 = expect(result).rejects.toThrowError(
             getExactStringRegex("Function had a(n) (simulated) error"),
           );
-          await vi.advanceTimersByTimeAsync(1000);
+          await vi.advanceTimersByTimeAsync(600);
           await expect1;
           await expect2;
         },
@@ -165,7 +165,7 @@ export function addTimeoutToFunctionTestsFactory(
         const result = asyncWaitDecoratedWithTimeout();
         const expect1 = expect(result).rejects.toThrowError();
         // Need to wait so that the timeout callback fn has time to run before checking things
-        await vi.advanceTimersByTimeAsync(100);
+        await vi.advanceTimersByTimeAsync(150);
         await expect1;
         const _expect2 = expect(cleanupFnMock).toHaveBeenCalledOnce();
         const _expect3 = expect(cleanupFnMock).toHaveBeenCalledWith(1, 2);

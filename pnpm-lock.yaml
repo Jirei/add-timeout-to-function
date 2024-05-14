@@ -7,13 +7,14 @@ settings:
 importers:
 
   .:
+    dependencies:
+      add-timeout-to-function:
+        specifier: file:test-build/add-timeout-to-function-0.0.13.tgz
+        version: file:test-build/add-timeout-to-function-0.0.13.tgz
     devDependencies:
       '@eslint/js':
         specifier: 8.57.0
         version: 8.57.0
-      '@local-build/add-timeout-to-function':
-        specifier: file:test-build/add-timeout-to-function-0.0.13.tgz
-        version: add-timeout-to-function@file:test-build/add-timeout-to-function-0.0.13.tgz
       '@types/eslint__js':
         specifier: ^8.42.3
         version: 8.42.3
@@ -585,7 +586,7 @@ packages:
     hasBin: true
 
   add-timeout-to-function@file:test-build/add-timeout-to-function-0.0.13.tgz:
-    resolution: {integrity: sha512-q1zgEIL85u1eaYp54WPodw6ckE4m8uWGC4UEQxSk1hFgY8usvb2UQIw5gLXcES1XgC/EOpNx6NpH80Hm+LI4gg==, tarball: file:test-build/add-timeout-to-function-0.0.13.tgz}
+    resolution: {integrity: sha512-b2H00M2qqS0On6+qGJ9ByYALpYlaTp1SNBNlxncG+xNYKvz3KPeNMVR0zFTIZhUNgFjcfYhqUVPTvpNoqCoL0Q==, tarball: file:test-build/add-timeout-to-function-0.0.13.tgz}
     version: 0.0.13
 
   ajv@6.12.6:
