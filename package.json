@@ -16,7 +16,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest",
-    "build-test": "pnpm build && pnpm pack --pack-destination test-build && pnpm rm add-timeout-to-function && pnpm add ./test-build/add-timeout-to-function-* && vitest run add-timeout-to-function-build.test.ts",
+    "build-test": "npm run build && npm pack --pack-destination test-build && npm rm add-timeout-to-function && npm install ./test-build/add-timeout-to-function-* && vitest run add-timeout-to-function-build.test.ts",
     "lint": "eslint ."
   },
   "main": "./dist/index.umd.cjs",
