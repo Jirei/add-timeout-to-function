@@ -1,0 +1,27 @@
+name: Prerelease Pull Request Automatic Tests
+on: 
+  pull_request: 
+    types: [opened, synchronize]
+    branches: 
+      - prerelease
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: 
+      - run: npm run build
+      - run: npm run test
+      - run: npm run build-test
+  post-results:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      
+
