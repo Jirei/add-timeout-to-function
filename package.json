@@ -20,7 +20,10 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "version-bump-patch": "npm version patch --commit-hooks=false --git-tag-version=false",
+    "version-bump-minor": "npm version minor --commit-hooks=false --git-tag-version=false",
+    "version-bump-major": "npm version major --commit-hooks=false --git-tag-version=false"
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
