@@ -1,2 +1,7 @@
 npm run lint
-npm run  check-format
+npm run check-format
+branch_name=$(git branch --show-current)
+if [[ $branch_name = "development" ]]; then
+  npm run test
+  npm run build-test
+fi
