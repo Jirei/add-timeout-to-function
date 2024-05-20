@@ -1,7 +1,12 @@
+a="Hello";
+echo $a;
+bash << 'EOF'
 npm run lint
 npm run check-format
 branch_name=$(git branch --show-current)
 if [[ $branch_name = "development" ]]; then
-  npm run test
+  npm run test run
   npm run build-test
 fi
+EOF
+
