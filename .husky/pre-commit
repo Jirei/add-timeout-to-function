@@ -1,9 +1,10 @@
-a="Hello";
-echo $a;
 bash << 'EOF'
+branch_name=$(git branch --show-current)
+if [[ $branch_name = "main" ]] || [[ $branch_name = "prelease" ]]; then
+exit 1;
+fi
 npm run lint
 npm run check-format
-branch_name=$(git branch --show-current)
 if [[ $branch_name = "development" ]]; then
   npm run test run
   npm run build-test
