@@ -1,12 +1,12 @@
 bash << 'EOF'
 runTests() {
     npm run test || { echo "Tests failed"; exit 1; }
-    npm run build-test || { echo "Build test failed"; exit 1; }
+    npm run build-test || { echo "Build tests failed"; exit 1; }
 }
 main(){
 branch_name=$(git branch --show-current)
 if [[ $branch_name = "main" ]] || [[ $branch_name = "prelease" ]]; then
-  echo "Error: Linting and tests are not allowed on $branch_name branch."
+  echo "Error: Direct local commits are not allowed on $branch_name branch."
   exit 1;
 fi
 npm run lint || { echo "Linting failed"; exit 1; }
