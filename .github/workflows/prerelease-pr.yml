@@ -30,7 +30,6 @@ jobs:
       - run: npm run check-format
       - run: npm run test
       - run: |
-          ls;
           npm run build-test
 
       - run: npm run build
