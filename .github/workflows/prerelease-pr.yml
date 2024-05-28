@@ -23,7 +23,6 @@ jobs:
       - run: |
           ls;
           pwd;
-          exit 1;
       - run: npm ci
       - run: npm run is-development-version-valid
       - run: npm run build
