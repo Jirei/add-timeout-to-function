@@ -1,4 +1,4 @@
 {
   "*": ["npx eslint"],
-  "**":["npx prettier --check"]
+  "**": ["npx prettier --check"]
 }
