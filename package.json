@@ -25,7 +25,7 @@
     "version-bump-patch": "npm version patch --commit-hooks=false --git-tag-version=false",
     "version-bump-minor": "npm version minor --commit-hooks=false --git-tag-version=false",
     "version-bump-major": "npm version major --commit-hooks=false --git-tag-version=false",
-    "is-development-version-valid":  "tsx ./scripts/is-development-version-valid.ts"
+    "is-development-version-valid": "tsx ./scripts/is-development-version-valid.ts"
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
