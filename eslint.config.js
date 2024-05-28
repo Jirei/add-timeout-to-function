@@ -25,5 +25,5 @@ export default tseslint.config(
       ],
     },
   },
-  { ignores: ["dist", "coverage", "!LICENSE.md"] },
+  { ignores: ["dist", "coverage"] },
 );
