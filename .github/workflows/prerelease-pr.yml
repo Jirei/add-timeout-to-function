@@ -25,12 +25,9 @@ jobs:
           pwd;
       - run: npm ci
       - run: npm run is-development-version-valid
-      - run: npm run build
       - run: npm run lint
       - run: npm run check-format
       - run: npm run test
-      - run: |
-          npm pkg delete scripts.prepare
-          npm run build-test
-
+      - run: npm pkg delete scripts.prepare
+      - run: npm run build-test
       - run: npm run build
