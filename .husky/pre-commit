@@ -9,8 +9,7 @@ if [[ $branch_name = "main" ]] || [[ $branch_name = "prelease" ]]; then
   echo "Error: Direct local commits are not allowed on $branch_name branch."
   exit 1;
 fi
-npm run lint || { echo "Linting failed"; exit 1; }
-npm run check-format || { echo "Format check failed"; exit 1; }
+npx lint-staged
 if [[ $branch_name = "development" ]]; then
   runTests
 fi

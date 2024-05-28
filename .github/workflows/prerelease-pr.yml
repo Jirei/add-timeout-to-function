@@ -1,4 +1,4 @@
-name: Prerelease Pull Request Automatic Tests
+name: Prerelease Pull Request
 env:
   HUSKY: 0
 on:
@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
+      - run: npm run is-development-version-valid
       - run: npm run lint
       - run: npm run check-format
       - run: npm ci

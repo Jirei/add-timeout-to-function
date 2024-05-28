@@ -1,8 +1,7 @@
 name: Test Workflow
 env:
   HUSKY: 0
-on:
-  workflow_dispatch
+on: workflow_dispatch
 jobs:
   build-and-test:
     runs-on: ubuntu-latest

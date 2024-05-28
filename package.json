@@ -1,7 +1,7 @@
 {
   "name": "add-timeout-to-function",
   "type": "module",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "homepage": "https://github.com/Jirei/add-timeout-to-function",
   "description": "Utility function to easily add timeout to any function returning a promise",
   "keywords": [
@@ -24,7 +24,8 @@
     "prepare": "husky",
     "version-bump-patch": "npm version patch --commit-hooks=false --git-tag-version=false",
     "version-bump-minor": "npm version minor --commit-hooks=false --git-tag-version=false",
-    "version-bump-major": "npm version major --commit-hooks=false --git-tag-version=false"
+    "version-bump-major": "npm version major --commit-hooks=false --git-tag-version=false",
+    "is-development-version-valid":  "tsx ./scripts/is-development-version-valid.ts"
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -44,12 +45,17 @@
     "@types/eslint__js": "^8.42.3",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.11",
+    "@types/semver": "^7.5.8",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "eslint": "8.57.0",
     "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
     "lodash-es": "^4.17.21",
     "prettier": "3.2.5",
+    "semver": "^7.6.2",
+    "simple-git": "^3.24.0",
+    "tsx": "^4.11.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.8.0",
     "vite": "^5.2.11",
