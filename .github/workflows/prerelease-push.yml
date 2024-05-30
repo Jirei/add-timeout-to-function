@@ -4,7 +4,7 @@ env:
 on:
   push: 
     branches:
-      - test-workflow
+      - nonexistingplaceholder
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
