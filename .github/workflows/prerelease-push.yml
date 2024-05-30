@@ -2,7 +2,7 @@ name: Prerelease Push
 env:
   HUSKY: 0
 on:
-  push: 
+  push:
     branches:
       - nonexistingplaceholder
 jobs:
