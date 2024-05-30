@@ -10,3 +10,5 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test.yml
+    with:
+      branch_ref: ${{ github.event.pull_request.head.ref}}
