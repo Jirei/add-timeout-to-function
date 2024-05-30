@@ -1,12 +1,23 @@
-name: Tests
+name: Prerelease Push
 env:
   HUSKY: 0
 on:
- workflow_call: 
+  push: 
+    branches:
+      - test-workflow
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.ref}}
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
       - run: npm ci
       - run: npm run is-development-version-valid
       - run: npm run build # Need to run it before the lint because of the test build file
