@@ -8,18 +8,5 @@ on:
       - prerelease
       - development
 jobs:
-  tests:
+  test:
     uses: ./.github/workflows/test.yml
-    needs: setup-env
-  setup-env:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Branch
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-      - name: Set Up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
