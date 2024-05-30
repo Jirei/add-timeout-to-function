@@ -21,7 +21,6 @@ jobs:
         with:
           node-version: "20.x"
       - run: npm ci
-      - run: npm run is-development-version-valid
       - run: npm run build # Need to run it before the lint because of the test build file
       - run: npm run lint
       - run: npm run check-format

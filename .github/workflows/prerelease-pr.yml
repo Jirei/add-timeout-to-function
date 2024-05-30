@@ -11,4 +11,18 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      branch_ref: ${{ github.head_ref}}
+      branch_ref: ${{ github.head_ref }}
+  is-version-valid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{  github.head_ref  }}
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - run: npm ci
+      - run: npm run is-development-version-valid
