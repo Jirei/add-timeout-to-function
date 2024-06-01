@@ -9,7 +9,7 @@ if [[ $branch_name = "main" ]] || [[ $branch_name = "prelease" ]]; then
   echo "Error: Direct local commits are not allowed on $branch_name branch."
   exit 1;
 fi
-npx lint-staged
+npx lint-staged || exit 1;
 if [[ $branch_name = "development" ]]; then
   runTests
 fi

@@ -17,7 +17,7 @@
     "build": "vite build && tsc",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build-test": "npm run build && mkdir test-build && npm pack --pack-destination ./test-build && npm i -D ./test-build/add-timeout-to-function-* && vitest run add-timeout-to-function-build.test.ts && npm rm add-timeout-to-function",
+    "build-test": "npm run build && mkdir -p test-build && npm pack --pack-destination ./test-build && npm i -D ./test-build/add-timeout-to-function-* && vitest run add-timeout-to-function-build.test.ts && npm rm add-timeout-to-function",
     "lint": "eslint .",
     "format": "prettier --write .",
     "check-format": "prettier --check .",

@@ -4,7 +4,7 @@ env:
 on:
   push:
     branches:
-      - nonexistingplaceholder
+      - push-test
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -14,15 +14,16 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.ref}}
+          fetch-tags: true
       - name: Set Up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
       - run: npm ci
       - run: npm run is-development-version-valid
-      - run: npm run build # Need to run it before the lint because of the test build file
-      - run: npm run lint
-      - run: npm run check-format
-      - run: npm run test
-      - run: npm pkg delete scripts.prepare # Need to delete it to not have Husky bugging the script
-      - run: npm run build-test
+      - run: npm run make-version-prerelease
+      - run: git config --global user.email "from-workflow@email.com"
+      - run: git config --global user.name "Workflow Bot"
+      - run: git add package.json
+      - run: git commit --amend --no-edit
+      - run: git push origin

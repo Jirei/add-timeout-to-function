@@ -7,6 +7,7 @@ on:
     branches:
       - prerelease
       - development
+      - push-test
 jobs:
   test:
     uses: ./.github/workflows/test.yml

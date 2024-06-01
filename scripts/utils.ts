@@ -35,19 +35,23 @@ export async function isRegularVersionNextToGreatestRegularRelease(
   return { isOk: false, acceptableVersions };
 }
 
-export function createPrereleaseVersionString(
+export function createPrereleaseVersionFromRegularVersionWithoutIncrementing(
   version: string,
   preid: string,
 ): string {
-  if (!semver.valid(version)) {
+  if (version.includes("-") || !semver.valid(version)) {
     throw new Error("Invalid version string.");
   }
-  if (version.includes("-")) {
-    const incrementedVersion = semver.inc(version, "prerelease");
-    if (!incrementedVersion) {
-      throw new Error("Failed to increment version.");
-    }
-    return incrementedVersion;
-  }
   return version + "-" + preid + ".0";
+}
+
+export function incrementPrereleaseVersion(version: string) {
+  if (!version.includes("-") || !semver.valid(version)) {
+    throw new Error("The provided prerelease version isn't valid.");
+  }
+  const incrementedVersion = semver.inc(version, "prerelease");
+  if (!incrementedVersion) {
+    throw new Error("Failed to increment version.");
+  }
+  return incrementedVersion;
 }
