@@ -27,5 +27,6 @@ jobs:
       - run: git config --global user.email "from-workflow@email.com"
       - run: git config --global user.name "Workflow Bot"
       - run: git add package.json
+      - run: git pull --rebase
       - run: git commit --amend --no-edit
       - run: git push origin
