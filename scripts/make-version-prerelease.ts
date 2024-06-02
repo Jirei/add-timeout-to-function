@@ -11,5 +11,7 @@ packageJson.version =
   );
 writeFileSync(
   path.resolve(import.meta.dirname, "../package.json"),
-  await prettier.format(JSON.stringify(packageJson), { parser: "json" }),
+  await prettier.format(JSON.stringify(packageJson), {
+    filepath: "../package.json",
+  }),
 );
