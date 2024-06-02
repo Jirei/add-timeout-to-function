@@ -9,6 +9,6 @@ packageJson.version =
     "beta",
   );
 writeFileSync(
-  path.resolve(__dirname, "../package.json"),
+  path.resolve(import.meta.dirname, "../package.json"),
   JSON.stringify(packageJson),
 );
