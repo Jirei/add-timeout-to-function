@@ -1,17 +1,10 @@
 {
   "name": "add-timeout-to-function",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.0",
   "homepage": "https://github.com/Jirei/add-timeout-to-function",
   "description": "Utility function to easily add timeout to any function returning a promise",
-  "keywords": [
-    "utility",
-    "promise",
-    "timeout",
-    "async",
-    "wait",
-    "type-safe"
-  ],
+  "keywords": ["utility", "promise", "timeout", "async", "wait", "type-safe"],
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc",
@@ -30,14 +23,9 @@
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
+    ".": { "import": "./dist/index.js", "require": "./dist/index.umd.cjs" }
   },
   "license": "MIT",
   "types": "./dist/index.d.ts",
