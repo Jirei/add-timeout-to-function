@@ -31,7 +31,7 @@ jobs:
       - run: git status
       - run: git commit --amend --no-edit --allow-empty
       - run: git fetch
-      - run: git log --oneline local-branch
-      - run: git log --oneline origin/remote-branch
+      - run: git log --oneline push-test
+      - run: git log --oneline origin/push-test
       - run: git diff origin/push-test HEAD
       - run: git push origin
