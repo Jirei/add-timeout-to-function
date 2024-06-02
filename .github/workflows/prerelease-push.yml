@@ -30,5 +30,5 @@ jobs:
       - run: git add package.json
       - run: git status
       - run: git commit --amend --no-edit --allow-empty
-      - run: git diff HEAD origin/push-test
+      - run: git diff origin/push-test HEAD
       - run: git push origin
