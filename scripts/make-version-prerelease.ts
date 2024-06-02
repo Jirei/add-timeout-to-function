@@ -2,6 +2,7 @@ import { writeFileSync } from "fs";
 import packageJson from "../package.json";
 import { createPrereleaseVersionFromRegularVersionWithoutIncrementing } from "./utils";
 import path from "path";
+import * as prettier from "prettier";
 
 packageJson.version =
   createPrereleaseVersionFromRegularVersionWithoutIncrementing(
@@ -10,5 +11,5 @@ packageJson.version =
   );
 writeFileSync(
   path.resolve(import.meta.dirname, "../package.json"),
-  JSON.stringify(packageJson),
+  await prettier.format(JSON.stringify(packageJson), { parser: "json" }),
 );
