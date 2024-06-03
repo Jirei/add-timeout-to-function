@@ -23,11 +23,8 @@ jobs:
       - run: npm ci
       - run: npm run is-development-version-valid
       - run: npm run make-version-prerelease
-      - run: cat package.json
-      - run: git log
       - run: git config --global user.email "from-workflow@email.com"
       - run: git config --global user.name "Workflow Bot"
       - run: git add package.json
-      - run: git status
-      - run: git commit --amend --no-edit --allow-empty
+      - run: git commit --amend --no-edit
       - run: git push origin --force-with-lease
