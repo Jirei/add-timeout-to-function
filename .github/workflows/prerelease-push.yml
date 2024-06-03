@@ -27,5 +27,5 @@ jobs:
       - run: git config --global user.name "Workflow Bot"
       - run: git add package.json
       - run: git commit --amend --no-edit
-      - run: git tag "v$(npm pkg get version)""
+      - run: git tag "v$(npm pkg get version)"
       - run: git push origin --force-with-lease --tags
