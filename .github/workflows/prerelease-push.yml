@@ -29,6 +29,6 @@ jobs:
       - run: git add package.json
       - run: git commit --amend --no-edit
       - run: git push origin --force-with-lease
-      - run: gh release create "v$(npm pkg get version | sed "s/[\'\"]//g")" --latest=false --target=HEAD
+      - run: gh release create "v$(npm pkg get version | sed "s/[\'\"]//g")" --latest=false --target=$(git branch --show-current)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
