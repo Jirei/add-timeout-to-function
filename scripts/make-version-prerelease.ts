@@ -9,6 +9,7 @@ packageJson.version =
     packageJson.version,
     "beta",
   );
+console.log(packageJson.version);
 writeFileSync(
   path.resolve(import.meta.dirname, "../package.json"),
   await prettier.format(JSON.stringify(packageJson), {
