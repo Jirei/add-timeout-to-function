@@ -15,11 +15,12 @@ export async function getRegularReleaseTags() {
 
 export async function doesVersionHavePrerelease(version: string) {
   if (
-    (await getAllTags()).filter(
+    (await getAllTags()).some(
       (tag) => tag.includes(version) && tag.includes("-") && semver.valid(tag),
     )
-  )
+  ) {
     return true;
+  }
   return false;
 }
 
