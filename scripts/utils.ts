@@ -13,6 +13,16 @@ export async function getRegularReleaseTags() {
     .filter((tag) => !tag.includes("-"));
 }
 
+export async function doesVersionHavePrerelease(version: string) {
+  if (
+    (await getAllTags()).filter(
+      (tag) => tag.includes(version) && tag.includes("-") && semver.valid(tag),
+    )
+  )
+    return true;
+  return false;
+}
+
 export async function getGreatestRegularReleaseTag() {
   return semver.rsort(await getRegularReleaseTags())[0];
 }
