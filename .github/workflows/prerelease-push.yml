@@ -9,6 +9,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     permissions: write-all
+
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v4
@@ -27,5 +28,7 @@ jobs:
       - run: git config --global user.name "Workflow Bot"
       - run: git add package.json
       - run: git commit --amend --no-edit
-      - run: git tag "v$(npm pkg get version | sed "s/[\'\"]//g")"
-      - run: git push origin --force-with-lease --tags
+      - run: git push origin --force-with-lease
+      - run: gh release create "v$(npm pkg get version | sed "s/[\'\"]//g")" --latest=false --target=HEAD
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
