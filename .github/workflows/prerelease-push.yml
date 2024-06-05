@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: "20.x"
       - run: npm ci
-      - run: npm run make-version-prerelease-or-inc
+      - run: npm run make-version-highest-prerelease
       - run: git config --global user.email "from-workflow@email.com"
       - run: git config --global user.name "Workflow Bot"
       - run: git add package.json
