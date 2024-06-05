@@ -13,7 +13,7 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       branch_ref: ${{ github.head_ref }}
-  is-version-valid:
+  is-development-version-valid:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
