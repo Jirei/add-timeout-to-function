@@ -13,15 +13,17 @@ export async function getRegularReleaseTags() {
     .filter((tag) => !tag.includes("-"));
 }
 
-export async function doesVersionHavePrerelease(version: string) {
-  if (
-    (await getAllTags()).some(
-      (tag) => tag.includes(version) && tag.includes("-") && semver.valid(tag),
-    )
-  ) {
-    return true;
-  }
-  return false;
+export async function getHighestPrerelease(
+  version: string,
+): Promise<string | null> {
+  return (
+    semver
+      .rsort(await getAllTags())
+      .find(
+        (tag) =>
+          tag.includes(version) && tag.includes("-") && semver.valid(tag),
+      ) || null
+  );
 }
 
 export async function getGreatestRegularReleaseTag() {
