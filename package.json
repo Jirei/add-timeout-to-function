@@ -1,7 +1,7 @@
 {
   "name": "add-timeout-to-function",
   "type": "module",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/Jirei/add-timeout-to-function",
   "description": "Utility function to easily add timeout to any function returning a promise",
   "keywords": [
