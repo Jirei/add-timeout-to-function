@@ -6,7 +6,7 @@ if (result.isOk) {
   console.log("Version is valid.");
 } else {
   throw new Error(
-    "Package version invalid. Acceptable versions:\n" +
+    "Package version invalid. Acceptable versions (for the prerelease to be based of):\n" +
       result.acceptableVersions?.join("\n") +
       "\n",
   );

@@ -1,18 +1,18 @@
-name: Prerelease Pull Request
+name: Main Pull Request
 env:
   HUSKY: 0
 on:
   pull_request:
     types: [opened, synchronize]
     branches:
-      - prerelease
-      - prerelease-test
+      - main
+      - main-test
 jobs:
   test:
     uses: ./.github/called-workflows/test.yml
     with:
       branch_ref: ${{ github.head_ref }}
-  is-development-version-valid:
+  is-prerelease-version-valid:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
@@ -25,4 +25,4 @@ jobs:
         with:
           node-version: "20.x"
       - run: npm ci
-      - run: npm run is-development-version-valid
+      - run: npm run is-prerelease-version-valid

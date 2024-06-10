@@ -1,13 +1,13 @@
-name: Prerelease Push
+name: Main Push
 env:
   HUSKY: 0
 on:
   push:
     branches:
-      - prerelease
-      - prerelease-test
+      - main
+      - main-test
 jobs:
-  make-version-prerelease-or-inc:
+  make-prerelease-version-regular:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -23,12 +23,12 @@ jobs:
         with:
           node-version: "20.x"
       - run: npm ci
-      - run: npm run make-version-highest-prerelease
+      - run: npm run make-prerelease-regular
       - run: git config --global user.email "from-workflow@email.com"
       - run: git config --global user.name "Workflow Bot"
       - run: git add package.json
       - run: git commit --amend --no-edit
       - run: git push origin --force-with-lease
-      - run: gh release create "v$(npm pkg get version | sed "s/[\'\"]//g")" --latest=false --target=$(git branch --show-current)
+      - run: gh release create "v$(npm pkg get version | sed "s/[\'\"]//g")" --target=$(git branch --show-current)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
