@@ -30,22 +30,29 @@ export async function getGreatestRegularReleaseTag() {
   return semver.rsort(await getRegularReleaseTags())[0];
 }
 
-export async function isRegularVersionNextToGreatestRegularRelease(
+export async function isVersionNextToGreatestRegularRelease(
   version: string,
+  versionMustBeRegular = true,
 ): Promise<{ isOk: boolean; acceptableVersions?: (string | null)[] }> {
   const releasesTypes: semver.ReleaseType[] = ["patch", "minor", "major"];
   const greatestRegularRelease = await getGreatestRegularReleaseTag();
   const acceptableVersions = releasesTypes.map((releaseType) =>
     semver.inc(greatestRegularRelease, releaseType),
   );
-  if (version.includes("-")) return { isOk: false, acceptableVersions };
+  if (versionMustBeRegular && version.includes("-")) {
+    return { isOk: false, acceptableVersions };
+  }
   const isOk = releasesTypes.some(
     (releaseType) =>
       semver.inc(greatestRegularRelease, releaseType) ===
-      semver.coerce(version)?.version,
+      (versionMustBeRegular
+        ? semver.coerce(version)?.version
+        : semver.coerce(version.split("-")[0])?.version),
   );
-  if (isOk) return { isOk: true };
-  return { isOk: false, acceptableVersions };
+  if (versionMustBeRegular) {
+    return { isOk, acceptableVersions };
+  }
+  return { isOk };
 }
 
 export function createPrereleaseVersionFromRegularVersionWithoutIncrementing(
