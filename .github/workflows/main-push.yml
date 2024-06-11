@@ -7,8 +7,24 @@ on:
       - main
       - main-test
 jobs:
+  is-pushing-new-version:
+    runs-on: ubuntu-latest
+    outputs:
+      new-version: $ {{ steps.is_new_version.outputs.is-new-version}}
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - id: is-new-version
+        run: |
+          if [[ $(git log -1 --pretty=format:"%s") = new-version:* ]];
+          then echo "is-new-version=true" >> "$GITHUB_OUTPUT"
+          fi
   make-prerelease-version-regular:
     runs-on: ubuntu-latest
+    needs: is-pushing-new-version
+    if: ${{ needs.is-pushing-new-version.outputs.new-version == 'true' }}
     permissions:
       contents: write
     steps:
