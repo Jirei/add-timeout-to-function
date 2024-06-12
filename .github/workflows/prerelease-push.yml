@@ -7,33 +7,33 @@ on:
       - prerelease
       - prerelease-test
 jobs:
-  is-pushing-new-version:
+  is_pushing_new_version:
     runs-on: ubuntu-latest
     outputs:
-      new-version: $ {{ steps.is-new-version-step.outputs.new-version}}
+      new_version: $ {{ steps.is_new_version_step.outputs.new_version }}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
-      - id: is-new-version-step
+      - id: is_new_version_step
         run: |
-          if [[ $(git log -1 --pretty=format:"%s") = new-version:* ]];
-          then echo "new-version=true" >> "$GITHUB_OUTPUT"
+          if [[ $(git log -1 --pretty=format:"%s") = new_version:* ]];
+          then echo "new_version=true" >> "$GITHUB_OUTPUT"
           fi
   just-for-experimenting:
-    needs: is-pushing-new-version
+    needs: is_pushing_new_version
     runs-on: ubuntu-latest
     steps:
       - env:
-          NEW_VERSION: ${{needs.is-pushing-new-version.outputs.new-version}}
+          NEW_VERSION: ${{needs.is_pushing_new_version.outputs.new_version}}
         run: |
           echo 1;
           echo $NEW_VERSION
 
   make-version-prerelease-or-inc:
-    needs: is-pushing-new-version
-    if: ${{ needs.is-pushing-new-version.outputs.new-version == 'true' }}
+    needs: is_pushing_new_version
+    if: ${{ needs.is_pushing_new_version.outputs.new_version == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
