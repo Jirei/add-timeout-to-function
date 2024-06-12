@@ -10,16 +10,17 @@ jobs:
   is-pushing-new-version:
     runs-on: ubuntu-latest
     outputs:
-      new-version: $ {{ steps.is_new_version.outputs.is-new-version}}
+      new-version: ${{ steps.is-new-version-step.outputs.new-version }}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
-      - id: is-new-version
+      - id: is-new-version-step
         run: |
           if [[ $(git log -1 --pretty=format:"%s") = new-version:* ]];
-          then echo "is-new-version=true" >> "$GITHUB_OUTPUT"
+          then echo "new-version=true" >> "$GITHUB_OUTPUT";
+          echo hello;
           fi
   make-prerelease-version-regular:
     runs-on: ubuntu-latest

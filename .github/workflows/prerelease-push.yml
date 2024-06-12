@@ -22,16 +22,6 @@ jobs:
           then echo "new-version=true" >> "$GITHUB_OUTPUT";
           echo hello;
           fi
-  just-for-experimenting:
-    needs: is-pushing-new-version
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          NEW_VERSION: ${{ needs.is-pushing-new-version.outputs.new-version }}
-        run: |
-          echo 1;
-          echo $NEW_VERSION
-
   make-version-prerelease-or-inc:
     needs: is-pushing-new-version
     if: ${{ needs.is-pushing-new-version.outputs.new-version == 'true' }}
