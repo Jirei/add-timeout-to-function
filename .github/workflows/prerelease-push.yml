@@ -10,7 +10,7 @@ jobs:
   is_pushing_new_version:
     runs-on: ubuntu-latest
     outputs:
-      new_version: $ {{ steps.is_new_version_step.outputs.new_version }}
+      new_version: ${{ steps.is_new_version_step.outputs.new_version }}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v4
