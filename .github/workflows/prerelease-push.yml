@@ -27,7 +27,9 @@ jobs:
     steps:
       - env:
           NEW_VERSION: ${{needs.is-pushing-new-version.outputs.new-version}}
-        run: echo $NEW_VERSION
+        run: |
+          echo 1;
+          echo $NEW_VERSION
 
   make-version-prerelease-or-inc:
     needs: is-pushing-new-version
