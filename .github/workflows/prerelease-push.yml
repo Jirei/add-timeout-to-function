@@ -21,6 +21,13 @@ jobs:
           if [[ $(git log -1 --pretty=format:"%s") = new-version:* ]];
           then echo "new-version=true" >> "$GITHUB_OUTPUT"
           fi
+  just-for-experimenting:
+    needs: is-pushing-new-version
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEW_VERSION: ${{needs.is-pushing-new-version.outputs.new-version}}
+        run: echo $NEW_VERSION
 
   make-version-prerelease-or-inc:
     needs: is-pushing-new-version
