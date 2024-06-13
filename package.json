@@ -26,6 +26,7 @@
     "version-bump-minor": "npm version minor --commit-hooks=false --git-tag-version=false",
     "version-bump-major": "npm version major --commit-hooks=false --git-tag-version=false",
     "is-development-version-valid": "tsx ./scripts/is-development-version-valid.ts",
+    "is-prerelease-version-valid": "tsx ./scripts/is-prerelease-version-valid.ts",
     "make-version-highest-prerelease": "tsx ./scripts/make-version-highest-prerelease.ts",
     "make-prerelease": "tsx ./scripts/make-prerelease-regular.ts"
   },
