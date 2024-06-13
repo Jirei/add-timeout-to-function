@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.ref }}
       - id: is-new-version-step
         run: |
-          if [[ $(git log -1 --pretty=format:"%s") = new-version:* ]];
+          if [[ $(git log -1 --pretty=format:"%B") = *new-version:* ]];
           then echo "new-version=true" >> "$GITHUB_OUTPUT";
           echo hello;
           fi
