@@ -48,4 +48,4 @@ jobs:
       - run: git push origin --force-with-lease
       - run: gh release create "v$(npm pkg get version | sed "s/[\'\"]//g")" --latest=false --target=$(git branch --show-current)
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
