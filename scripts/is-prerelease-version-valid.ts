@@ -1,6 +1,9 @@
 import { isVersionNextToGreatestRegularRelease } from "./utils.ts";
 import packageJson from "../package.json";
-const result = await isVersionNextToGreatestRegularRelease(packageJson.version);
+const result = await isVersionNextToGreatestRegularRelease(
+  packageJson.version,
+  false,
+);
 
 if (result.isOk) {
   console.log("Version is valid.");

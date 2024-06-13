@@ -1,7 +1,7 @@
 {
   "name": "add-timeout-to-function",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "homepage": "https://github.com/Jirei/add-timeout-to-function",
   "description": "Utility function to easily add timeout to any function returning a promise",
   "keywords": [
@@ -26,6 +26,7 @@
     "version-bump-minor": "npm version minor --commit-hooks=false --git-tag-version=false",
     "version-bump-major": "npm version major --commit-hooks=false --git-tag-version=false",
     "is-development-version-valid": "tsx ./scripts/is-development-version-valid.ts",
+    "is-prerelease-version-valid": "tsx ./scripts/is-prerelease-version-valid.ts",
     "make-version-highest-prerelease": "tsx ./scripts/make-version-highest-prerelease.ts",
     "make-prerelease": "tsx ./scripts/make-prerelease-regular.ts"
   },
